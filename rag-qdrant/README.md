@@ -10,7 +10,7 @@ This project utilizes a Retrieval-Augmented Generation (RAG) system enhanced by 
 
 ## Video DEMO
 
-[![Watch the video](https://img.youtube.com/vi/5Nd7qhf6Mhc/0.jpg)](https://www.youtube.com/watch?v=5Nd7qhf6Mhc)
+[![Watch the video](https://img.youtube.com/vi/6eiAWtUe2Gc/0.jpg)](https://www.youtube.com/watch?v=6eiAWtUe2Gc)
 
 ## Example Queries
 1. What phase is Project Alpha currently in?
