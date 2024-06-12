@@ -8,6 +8,10 @@ This project utilizes a Retrieval-Augmented Generation (RAG) system enhanced by 
 - **Advanced Document Retrieval**: Combines the power of transformer models and vector databases to fetch relevant documents.
 - **Dynamic ReRanking**: Implements reranking to refine the retrieval results based on cosine similarity scores, ensuring the highest relevance of the information returned.
 
+## Video DEMO
+
+[![Watch the video](https://img.youtube.com/vi/c3uPT_2l0Ro/0.jpg)](https://www.youtube.com/watch?v=c3uPT_2l0Ro)
+
 ## Example Queries
 1. What phase is Project Alpha currently in?
 2. How does the retrieval component of the RAG system work?
