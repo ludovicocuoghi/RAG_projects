@@ -14,17 +14,17 @@ provide_response_retrieved = False
 def main():
     st.title("Retrieval-Augmented Generation with ReRanking (Hosted by Qdrant)")
     st.markdown("""
-        Explore advanced document retrieval enhanced with re-ranking capabilities for more precise and cost-effective responses in real-time.
-        Select different model configurations to best fit your application needs.
+    Get started with our advanced document retrieval system that includes re-ranking capabilities. This combination helps provide more accurate and cost-efficient responses quickly. Adjust the re-ranking settings to fit your specific needs.
     """)
 
     st.sidebar.header("Configuration")
-    st.sidebar.write("Select Model Size:")
+    st.sidebar.write("Select a Reranking Model Size:")
     model_options = {
-        "ms-marco-MiniLM-L-12-v2": "23 MB - Balance of performance and size using MiniLM architecture.",
-        "ms-marco-TinyBERT-L-2-v2": "4 MB - High efficiency for limited resources.",
-        "ms-marco-MultiBERT-L-12": "103 MB - Multilingual capabilities across diverse datasets."
+        "ms-marco-MiniLM-L-12-v2": "23 MB - Balances performance and size effectively with the MiniLM architecture.",
+        "ms-marco-TinyBERT-L-2-v2": "4 MB - Optimized for high efficiency in resource-constrained environments.",
+        "rank-T5-flan": "110 MB - Enhanced T5 model fine-tuned on diverse NLP tasks, ideal for integrating with RAG systems due to its robust text processing and adaptability."
     }
+
     choice = st.sidebar.selectbox("Choose Model", list(model_options.keys()))
     st.sidebar.markdown("### Model Details")
     st.sidebar.info(model_options[choice])
@@ -54,8 +54,8 @@ def main():
         submit_button = st.form_submit_button('Run Retrieval and Reranking')
 
     if submit_button:
-        st.markdown("## Processing your query...")
-        with st.spinner('Fetching data and reranking...'):
+        st.markdown("## Processing Your Query")
+        with st.spinner('Fetching data from Qdrant Client and reranking...'):
             client = QdrantClient(url="http://localhost:6333", prefer_grpc=False)
             db = Qdrant(client=client, embeddings=FastEmbedEmbeddings(), collection_name="ml_meeting")
             st.write("Loaded Dataset: company_meeting_ml")
@@ -73,7 +73,6 @@ def main():
             combined_original_context = " ".join(doc["text"] for doc in retrieved_results)
             combined_filtered_context = " ".join(doc["text"] for doc in filter_chunks_reranked(reranked_results))
             display_responses(combined_original_context, combined_filtered_context)
-        
         with st.spinner('Generating GPT responses, please wait... This may take a few moments depending on the complexity of the query and the load on the system.'):
             generate_gpt_responses(input_query, combined_original_context, combined_filtered_context)
 

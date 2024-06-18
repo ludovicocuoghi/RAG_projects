@@ -1,19 +1,21 @@
-from flashrank.Ranker import Ranker, RerankRequest
 import copy
+from flashrank.Ranker import Ranker, RerankRequest
 
 def reranking(query, passages, choice):
     # Create a deep copy of passages to prevent modification of the original list
-    #passages_copy = copy.deepcopy(passages)
+    passages_copy = copy.deepcopy(passages)
 
     if choice == "ms-marco-TinyBERT-L-2-v2":
         ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2")
     elif choice == "ms-marco-MiniLM-L-12-v2":
         ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2")
-    elif choice == "ms-marco-MultiBERT-L-12":
-        ranker = Ranker(model_name="ms-marco-MultiBERT-L-12")
+    elif choice == "rank-T5-flan":
+        ranker = Ranker(model_name="rank-T5-flan")
     else:
         print("Did not select valid model")
-    rerankrequest = RerankRequest(query=query, passages=passages)
+        return []
+
+    rerankrequest = RerankRequest(query=query, passages=passages_copy)
     reranked_passages = ranker.rerank(rerankrequest)
 
     return reranked_passages

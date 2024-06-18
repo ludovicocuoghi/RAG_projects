@@ -4,51 +4,80 @@ import numpy as np
 import streamlit as st
 from filter_chunks_reranked import filter_chunks_reranked
 
-def plot_comparisons(reranked_results, retrieved_sims):
+def plot_comparisons(reranked_results, retrieved_results):
     # Extract information from reranked_results
     reranked_sims = [np.round(result["cosine_similarity"], 2) for result in reranked_results]
     reranked_scores = [np.round(result["score"], 2) for result in reranked_results]
-    positions = np.arange(1, len(retrieved_sims) + 1)  # Define positions for x-axis
+    retrieved_sims = [np.round(result["cosine_similarity"], 2) for result in retrieved_results]
+    positions = np.arange(1, len(retrieved_results) + 1)  # Define positions for x-axis
 
     # Determine selected indices using the existing filtering logic
     selected_indices = filter_chunks_reranked(reranked_results)
     last_selected_index = len(selected_indices)  # Position of the last selected index
 
+    sns.set(style="whitegrid")
+    plt.rcParams.update({
+        'axes.labelsize': 8,  
+        'axes.titlesize': 10,
+        'xtick.labelsize': 8,  
+        'ytick.labelsize': 8,  
+        'legend.fontsize': 8,  
+        'lines.linewidth': 2.5,  
+        'lines.markersize': 6 
+    })
+
     # Plotting
-    fig, axs = plt.subplots(ncols=2, figsize=(16, 6))
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(6, 5.5))
+    
+    # fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(6, 9))
+    # # Plot 1: Original Cosine Similarities
+    # sns.lineplot(x=positions, y=retrieved_sims, ax=axs[0], label='Before Reranking', marker='o', linestyle='-', color='skyblue')
+    # axs[0].set_title('Cosine Similarity between Input Query and Top Retrieved Chunks')
+    # axs[0].set_xlabel('Chunk ID (Original Order)')
+    # axs[0].set_ylabel('Cosine Similarity')
+    # axs[0].set_ylim(0, 1)
+    # axs[0].set_xticks(np.arange(1, len(positions) + 1))
+    # axs[0].grid(True, which='major', linestyle='--', linewidth=0.5)  # Only horizontal grid lines
+    # axs[0].get_legend().remove()
 
-    # Plot 1: Cosine Similarities
-    sns.lineplot(x=positions, y=retrieved_sims, ax=axs[0], label='Original Similarities', marker='o')
-    sns.lineplot(x=positions, y=reranked_sims, ax=axs[0], label='Reranked Similarities', marker='o')
-    axs[0].set_title('Comparison of Cosine Similarities: Original vs Reranked')
-    axs[0].set_xlabel('Position')
+    # Plot 2: Comparison of Cosine Similarities
+    sns.lineplot(x=positions, y=retrieved_sims, ax=axs[0], label='Before Reranking', marker='o', linestyle='-', color='skyblue')
+    sns.lineplot(x=positions, y=reranked_sims, ax=axs[0], label='After Reranking', marker='s', linestyle='--', color='darkorange')
+    axs[0].set_title('Comparison of Cosine Similarities Before and After Reranking')
+    axs[0].set_xlabel('Chunk ID (Reordered by Cosine Similarity)')
     axs[0].set_ylabel('Cosine Similarity')
-    axs[0].set_xticks(positions)  # Set x-ticks to positions
-    axs[0].legend()
+    axs[0].set_xticks(np.arange(1, len(positions) + 1))
+    axs[0].legend(loc='upper right')  # Move legend outside plot area
+    axs[0].set_ylim(0, 1)
+    axs[0].grid(True, which='major', linestyle='--', linewidth=0.5)  # Only horizontal grid lines
 
-    # Plot 2: Reranked Scores with a single vertical line for the last selected index
-    sns.lineplot(x=positions, y=reranked_scores, ax=axs[1], label='Reranked Scores', color='green', marker='o')
-    axs[1].axvline(x=last_selected_index, color='red', linestyle='--', linewidth=2, label='Filter Cutoff')
-    axs[1].set_title('Reranked Scores with Filter Cutoff')
-    axs[1].set_xlabel('Position')
-    axs[1].set_ylabel('Scores')
-    axs[1].set_xticks(positions)  # Set x-ticks to positions
-    axs[1].legend()
+    # Adding comparison of top chunks
+    top_k = [5, 10, 15]
+    comparison_text = ""
+    for k in top_k:
+        if k <= len(retrieved_results) and k <= len(reranked_results):
+            retrieved_ids = [result['id'] for result in retrieved_results[:k]]
+            reranked_ids = [result['id'] for result in reranked_results[:k]]
+            common_ids = set(retrieved_ids).intersection(set(reranked_ids))
+            comparison_text += f"Common IDs in top {k}: {len(common_ids)}/{k}\n"
+    
+    # Add text box for comparison
+    axs[0].text(0.95, 0.05, comparison_text.strip(), transform=axs[0].transAxes, fontsize=10, verticalalignment='bottom', 
+                horizontalalignment='right', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+
+    # Plot 3: Reranked Scores with Threshold Line
+    sns.lineplot(x=positions, y=reranked_scores, ax=axs[1], label='Reranked Score', color='limegreen', marker='o')
+    axs[1].axvline(x=last_selected_index, color='indianred', linestyle='--', linewidth=2, label='Score Threshold')
+    axs[1].text(last_selected_index + 0.2, np.max(reranked_scores) * 0.85, 'THRESHOLD', horizontalalignment='left', color='indianred', fontsize=8, fontweight='bold')
+    axs[1].set_title('Reranked Scores with Threshold Indicator')
+    #axs[1].set_title('Reranked Scores')
+    axs[1].set_xlabel('Chunk ID (Reordered by Reranked Score)')
+    axs[1].set_ylabel('Score')
+    axs[1].set_ylim(0, 1.2)  # Allowing up to 1.2 on the y-axis
+    axs[1].set_yticks(np.arange(0, 1.1, 0.2))  # Display ticks from 0 to 1
+    axs[1].set_xticks(np.arange(1, len(positions) + 1))
+    axs[1].legend(loc='upper right')  # Move legend outside plot area
+    axs[1].grid(True, which='major', linestyle='--', linewidth=0.5)  # Only horizontal grid lines
 
     plt.tight_layout()
     st.pyplot(fig)
-
-# Example usage in a Streamlit script
-def main():
-    # Example input data
-    original_sims = [0.79, 0.76, 0.72, 0.72, 0.71, 0.7, 0.7, 0.7, 0.68, 0.68, 0.68, 0.67, 0.63, 0.62, 0.62, 0.58, 0.57, 0.54, 0.54, 0.53, 0.52, 0.51, 0.51, 0.51, 0.51]
-    reranked_results = [{'id': '13', 'sim': 0.79, 'score': 1.0},
-                        {'id': '16', 'sim': 0.76, 'score': 0.98},
-                        # Continue with other reranked results
-                       ]
-    
-    st.title('Visualization of Cosine Similarities, Reranked Scores, and Index Position Shifts')
-    plot_comparisons(reranked_results, original_sims)
-
-if __name__ == "__main__":
-    main()
