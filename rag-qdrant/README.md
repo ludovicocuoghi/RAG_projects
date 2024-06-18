@@ -1,38 +1,37 @@
 # Retrieval-Augmented Generation with ReRanking (Hosted by Qdrant)
 
 ## Overview
-This project utilizes a Retrieval-Augmented Generation (RAG) system enhanced by Qdrant to offer advanced document retrieval capabilities combined with effective reranking. It's designed to provide precise and cost-effective responses in real-time for a variety of applications.
+Our project introduces a cutting-edge Retrieval-Augmented Generation (RAG) system, powered by Qdrant, designed to enhance document retrieval and re-ranking capabilities. This integration not only improves precision but also optimizes response efficiency, making it ideal for real-time applications across various domains.
 
-## Features
-- **Model Configuration**: Users can select different model sizes and configurations to best fit their application needs, with the default being `ms-marco-MiniLM-L-12-v2`.
-- **Advanced Document Retrieval**: Combines the power of transformer models and vector databases to fetch relevant documents.
-- **Dynamic ReRanking**: Implements reranking to refine the retrieval results based on cosine similarity scores, ensuring the highest relevance of the information returned.
+## Key Features
+- **Model Configuration**: Choose from a selection of reranking models, tailored to meet diverse application demands. The default configuration is `ms-marco-MiniLM-L-12-v2`, renowned for its balance of performance and efficiency.
+- **Advanced Document Retrieval**: Leverages transformer-based models and sophisticated vector database technology from Qdrant to retrieve highly relevant documents swiftly.
+- **Dynamic ReRanking**: Utilizes cosine similarity scores to dynamically rerank search results, ensuring the delivery of the most pertinent information.
+
+## Video Demo
+Click below to watch a brief demonstration of our RAG system in action:
+
+[![Watch the video](https://img.youtube.com/vi/2vnvE0LP40c/0.jpg)](https://www.youtube.com/watch?v=2vnvE0LP40c)
 
 ## Example Queries
-1. What phase is Project Alpha currently in?
-2. How does the retrieval component of the RAG system work?
-3. What technique does Optuna use to optimize hyperparameters?
+Explore the capabilities of our system with these sample queries:
+1. "What phase is Project Alpha currently in?"
+2. "How does the retrieval component of the RAG system work?"
+3. "What technique does Optuna use to optimize hyperparameters?"
 
-## Installation
-Provide steps on how to set up the project locally or host it, including any required software or library dependencies.
+## Technologies and Libraries
+This project is built using several leading technologies and libraries:
+- **Langchain**: For constructing language models and managing linguistic data.
+- **Qdrant**: Employs a powerful vector database for efficient data storage and retrieval.
+- **HuggingFace Transformers**: Provides a robust platform for reranking using state-of-the-art pre-trained models.
+- **FastEmbed**: Developed by Qdrant, this tool enhances embedding functionalities.
+- **OpenAI GPT**: Utilized for generating coherent and contextually relevant text responses.
 
-## Usage
-Guide the users on how to run the system, including example commands and expected outputs.
+## Getting Started
+To get started with this project, clone the repository and follow the setup instructions in the installation guide. Ensure you have the required dependencies installed, as listed in the `requirements.txt` file.
 
-## Response Analysis
-Illustrate how the system processes queries and the benefits of using reranked responses with examples of input queries and the system’s output.
-
-## Cost Efficiency Analysis
-Detail the cost-saving benefits of using the optimized response system, including specific metrics on cost effectiveness.
-
-## Contributing
-Encourage others to contribute to the project by providing guidelines on how to do so.
+## How to Contribute
+We welcome contributions from the community. If you wish to contribute, please fork the repository and submit a pull request. For more details, check out our contributing guidelines in the `CONTRIBUTING.md` file.
 
 ## License
-Specify the license under which the project is released.
-
-## Contact
-Provide contact information for users to reach out with questions or collaborations.
-
-## Acknowledgments
-Credit any individuals or organizations that contributed significantly to the development of the project.
+This project is licensed under the MIT License - see the `LICENSE` file for more details.
