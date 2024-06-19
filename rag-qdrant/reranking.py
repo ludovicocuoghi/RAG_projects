@@ -9,8 +9,6 @@ def reranking(query, passages, choice):
         ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2")
     elif choice == "ms-marco-MiniLM-L-12-v2":
         ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2")
-    elif choice == "rank-T5-flan":
-        ranker = Ranker(model_name="rank-T5-flan")
     else:
         print("Did not select valid model")
         return []
