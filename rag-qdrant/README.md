@@ -11,7 +11,9 @@ Our project introduces a cutting-edge Retrieval-Augmented Generation (RAG) syste
 ## Video Demo
 Click below to watch a brief demonstration of our RAG system in action:
 
-[[![Watch the video](https://img.youtube.com/vi/2vnvE0LP40c/0.jpg)](https://www.youtube.com/watch?v=2vnvE0LP40c)](https://www.youtube.com/watch?v=tDP2tAlZGFU)
+[[![Watch the video](https://img.youtube.com/vi/tDP2tAlZGFU/0.jpg)](https://www.youtube.com/watch?v=tDP2tAlZGFU)]
+
+
 
 ## Example Queries
 Explore the capabilities of our system with these sample queries:
