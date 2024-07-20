@@ -7,10 +7,10 @@ load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI(api_key=openai_api_key)
-
+gpt_model_name = "gpt-4o-mini"
 # Pricing per million tokens
-input_price_per_million_tokens = 0.50  # $0.50 per 1 million tokens
-output_price_per_million_tokens = 1.50  # $1.50 per 1 million tokens
+input_price_per_million_tokens = 0.150   # $0.150 per 1 million tokens
+output_price_per_million_tokens = 0.600  # $0.600 per 1 million tokens
 
 def estimate_gpt_cost(input_text, output_text):
     # Function to count tokens, assuming a simple whitespace tokenization for demonstration purposes
@@ -47,7 +47,7 @@ def create_response(query, context):
     prompt = generate_full_prompt(query, context)
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=gpt_model_name,
         messages=[
             {"role": "system", "content": "You are an expert assistant."},
             {"role": "user", "content": prompt}
