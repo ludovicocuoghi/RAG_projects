@@ -66,13 +66,14 @@ def main():
     st.sidebar.markdown("### Example Queries")
     st.sidebar.write(example_questions)
 
+    # File uploader and processing
     uploaded_file = st.file_uploader("Upload a file")
     if uploaded_file is not None:
         st.session_state.uploaded_file = uploaded_file
 
-    if st.session_state.uploaded_file is not None:
-        uploaded_file = st.session_state.uploaded_file
-        st.write("Filename: ", st.session_state.uploaded_file.name)
+    if 'uploaded_file' in st.session_state:
+        up_file = st.session_state.uploaded_file
+        st.write("Filename:", up_file.name)
 
         file_extension = os.path.splitext(uploaded_file.name)[1].lower()
 
