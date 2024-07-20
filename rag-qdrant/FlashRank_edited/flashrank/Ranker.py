@@ -7,7 +7,7 @@ import os
 import zipfile
 import requests
 from tqdm import tqdm
-from flashrank.Config import default_model, default_cache_dir, model_url, model_file_map, listwise_rankers
+from FlashRank_edited.flashrank.Config import default_model, default_cache_dir, model_url, model_file_map, listwise_rankers
 import collections
 from typing import Optional, List, Dict, Any
 import logging
