@@ -71,7 +71,7 @@ def main():
     if uploaded_file is not None:
         st.session_state.uploaded_file = uploaded_file
 
-    if 'uploaded_file' in st.session_state:
+    if 'uploaded_file' in st.session_state and st.session_state.uploaded_file is not None:
         up_file = st.session_state.uploaded_file
         st.write("Filename:", up_file.name)
 
