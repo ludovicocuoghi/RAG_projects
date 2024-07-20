@@ -71,6 +71,7 @@ def main():
         st.session_state.uploaded_file = uploaded_file
 
     if st.session_state.uploaded_file is not None:
+        uploaded_file = st.session_state.uploaded_file
         st.write("Filename: ", st.session_state.uploaded_file.name)
 
         file_extension = os.path.splitext(uploaded_file.name)[1].lower()
