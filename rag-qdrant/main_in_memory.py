@@ -13,6 +13,11 @@ generate_response_flag = True
 #CLIENT_TYPE = "localhost:6333"
 CLIENT_TYPE = ":memory:"
 
+# Initialize session state variables
+if 'uploaded_file' not in st.session_state:
+    st.session_state.uploaded_file = None
+if 'input_query' not in st.session_state:
+    st.session_state.input_query = None
 
 def collection_exists(client, collection_name):
     try:
@@ -28,7 +33,7 @@ def main():
     st.markdown("""
     Get started with our advanced document retrieval system that includes re-ranking capabilities. This combination helps provide more accurate and cost-efficient responses quickly. Adjust the re-ranking settings to fit your specific needs.
     """)
-
+    
     st.sidebar.header("Configuration")
     st.sidebar.write("Select a Reranking Model Size:")
     model_options = {
@@ -62,10 +67,11 @@ def main():
     st.sidebar.write(example_questions)
 
     uploaded_file = st.file_uploader("Upload a file")
-
     if uploaded_file is not None:
+        st.session_state.uploaded_file = uploaded_file
 
-        st.write("Filename: ", uploaded_file.name)
+    if st.session_state.uploaded_file is not None:
+        st.write("Filename: ", st.session_state.uploaded_file.name)
 
         file_extension = os.path.splitext(uploaded_file.name)[1].lower()
 
@@ -90,6 +96,8 @@ def main():
             input_query= st.text_area("Enter your query here:", height=150)
             submit_button = st.form_submit_button('Run Retrieval and Reranking')
         if submit_button:
+            st.session_state.input_query = input_query
+        if st.session_state.input_query:
             st.markdown("### Processing Your Query...")
             with st.spinner('Fetching data from Qdrant Client'):
                 retrieved_entries = db_client.query(
