@@ -10,7 +10,7 @@ import os
 import pandas as pd
 
 provide_response_retrieved = False
-generate_response_flag = True
+generate_response_flag = False
 #CLIENT_TYPE = "localhost:6333"
 CLIENT_TYPE = ":memory:"
 
