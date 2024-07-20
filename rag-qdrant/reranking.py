@@ -1,5 +1,5 @@
 import copy
-from flashrank.Ranker import Ranker, RerankRequest
+from FlashRank_edited.flashrank.Ranker import Ranker, RerankRequest
 
 def reranking(query, passages, choice):
     # Create a deep copy of passages to prevent modification of the original list

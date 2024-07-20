@@ -1,6 +1,5 @@
 from qdrant_client import QdrantClient
 import streamlit as st
-import numpy as np
 from reranking import reranking
 from visualize_scores import plot_comparisons
 from filter_chunks_reranked import filter_chunks_reranked
