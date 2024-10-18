@@ -64,7 +64,7 @@ def main():
         15. What initiative is John planning to maintain a high level of expertise within the team?
     """
 
-    st.sidebar.markdown("### Example Queries")
+    st.sidebar.markdown("### Example Queries for file ml_meeting.txt")
     st.sidebar.write(example_questions)
 
     # File uploader and processing
