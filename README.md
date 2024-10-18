@@ -1,4 +1,4 @@
-# Retrieval-Augmented Generation with ReRanking (Hosted by Qdrant)
+# Retrieval-Augmented Generation with ReRanking (Hosted via Qdrant)
 
 ## Overview
 Our project introduces a Retrieval-Augmented Generation (RAG) system, powered by Qdrant, designed to enhance document retrieval and re-ranking capabilities. This integration not only improves precision but also optimizes response efficiency, making it ideal for real-time applications across various domains.

@@ -30,7 +30,7 @@ def collection_exists(client, collection_name):
 
 
 def main():
-    st.title("Retrieval-Augmented Generation with ReRanking (Hosted by Qdrant)")
+    st.title("Retrieval-Augmented Generation with ReRanking (Hosted via Qdrant)")
     st.markdown("""
     Get started with our advanced document retrieval system that includes re-ranking capabilities. This combination helps provide more accurate and cost-efficient responses quickly. Adjust the re-ranking settings to fit your specific needs.
     """)
