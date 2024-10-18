@@ -11,8 +11,8 @@ import pandas as pd
 provide_response_retrieved = False
 generate_response_flag = True
 #CHOOSE IF RUNNING THE VECTORDB ON MEMORY OR HOSTED ON QDRANT (VIA DOCKER)
-CLIENT_TYPE = "localhost:6333"
-#CLIENT_TYPE = ":memory:"
+#CLIENT_TYPE = "localhost:6333"
+CLIENT_TYPE = ":memory:"
 
 # Initialize session state variables
 if 'uploaded_file' not in st.session_state:
